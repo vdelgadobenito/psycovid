@@ -18,7 +18,7 @@ st.write("""Exploration of PsyCOVID database""")
 progress_bar = st.sidebar.progress(1)
 status_text = st.sidebar.empty()    
 
-data = pd.read_csv('covfinal.csv', error_bad_lines=False, encoding='latin-1')
+data = pd.read_csv('covfinal.csv', error_bad_lines=False, encoding='latin-1', low_memory=False)
 
 kwargs = {}
 
@@ -59,7 +59,7 @@ def datamix(**kwargs): #UserLanguage=w_language, has been removed for now
         else: 
             mix = mix.loc[data[key]==value]
 
-    st.write('mix cast:',mix)
+    st.write('mix cast:',locals()['mix'])
 
 
     if len(mix)>0:
@@ -97,4 +97,5 @@ def make_radar_chart(name="Big 5"):
 
     return st.pyplot(fig)
 
-make_radar_chart()
+#make_radar_chart()
+datamix()
