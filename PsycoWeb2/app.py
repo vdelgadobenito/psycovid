@@ -1,88 +1,76 @@
 
 import streamlit as st
-import time
+
 import numpy as np
 import pandas as pd
 
 import matplotlib.pyplot as plt
 import numpy as np
-import requests
 
 
 
 
 
 
-st.write("""My first app COpsych""")
+
+st.write("""Exploration of PsyCOVID database""")
 
 progress_bar = st.sidebar.progress(1)
 status_text = st.sidebar.empty()    
 
-data = pd.read_csv('covfinal.csv', error_bad_lines=False, encoding='latin-1')
+data = pd.read_csv('cleaned.csv', error_bad_lines=False, encoding='latin-1').fillna(0)
 
 kwargs = {}
 
 b_age = st.sidebar.checkbox('Age', value=True)
 if b_age:
-    kwargs['Dem_age'] = st.slider("Choose age:", 18, 70)
+    kwargs['Dem_age'] = st.sidebar.slider("Choose age:", 18, 70)
 
 b_gender = st.sidebar.checkbox('Gender', value=True)
 if b_gender: 
-    kwargs['Dem_gender'] = st.sidebar.multiselect('Pick a gender',  options=['Male','Other/would rather not say','Female'])
-#w_language = st.radio("Pick a language", ('EN','FR','PL','DE','PT'))
-b_country = st.sidebar.checkbox('Country', value=True)
+    kwargs['Dem_gender'] = st.sidebar.multiselect('Pick a gender',  options=['Male','Other/would rather not say','Female'], default='Female')
+
+b_country = st.sidebar.checkbox('Country', value=False)
 if b_country:
-    kwargs['Country'] = st.sidebar.multiselect("Pick a country", ('France','Germany','Poland','Denmark','Spain'))
+    kwargs['Country'] = st.sidebar.multiselect("Pick a country", data['Country'].unique())
 
-def greet_me(**kwargs):
-    for key, value in kwargs.items():
-        st.write("{0} = {1}".format(key, value))
-        #if type(value) is list:
-        #   mix = .loc[data['{0}'.format(key)].isin(value) #cast a list or a string
-        #else: 
-        #   mix = loc[data['{0}'.format(key)]='{0}'.format(value)
+b_education = st.sidebar.checkbox('Choose your education', value=False)
+if b_education:
+    kwargs['Dem_edu'] = st.sidebar.multiselect("Pick a language", data['Dem_edu'].unique())
 
-greet_me(**kwargs)
-
+b_comment = st.sidebar.checkbox('I want to add a comment', value=False)
+if b_comment:
+    txt = st.text_area('Your feelings', '''The user will be able to put some comment here which will go through NLP''')
+#st.write('Sentiment:', run_sentiment_analysis(txt))    
 
 
 w_attribute_labels = ['neu','ext','ope','agr','con']
 
+st.write(kwargs)
 
-def datagender(gender='Female'):
-    return data.loc[data['Dem_gender']==gender]
-
-def datacountry(country='Poland'):
-    return data.loc[data['Country']==country]
-    
-
-def datalanguage(UserLanguage='PL'):
-    return data.loc[data['UserLanguage']==UserLanguage]
     
 def datamix(**kwargs): #UserLanguage=w_language, has been removed for now
-
-# try casting kwargs directly to mix variable
     mix = data
     for key, value in kwargs.items():
         
         if type(value) is list:
             mix = mix.loc[data[key].isin(value)] #cast a list or a string
-            pass
+            
         else: 
             mix = mix.loc[data[key]==value]
 
+    #st.write('mix cast:',locals()['mix'])
 
 
-    if len(mix)>0:
-        return mix[w_attribute_labels],len(mix)
-    else:
-        return 'err1' #This is only a placeholder for insufficient data
+
+    return mix[w_attribute_labels]
+ 
 
 
 def make_radar_chart(name="Big 5"):
-    if datamix() == 'err1':
-        return st.write('Insufficient data')
-    markers = list(datamix()[0].mean()) 
+    if datamix(**kwargs).empty:
+        return st.write('Insufficient data. Please modify your query.')
+    markers = list(datamix(**kwargs).mean()) 
 
 
     labels = np.array(w_attribute_labels)
@@ -101,7 +89,7 @@ def make_radar_chart(name="Big 5"):
     ax.fill(angles, stats, alpha=0.25)
     ax.set_thetagrids(angles * 180/np.pi, labels)
     plt.yticks(markers)
-    ax.set_title(name)
+    ax.set_title(name+': The pentagonal chart you see applies for '+str(len(datamix(**kwargs)))+' people')
     ax.grid(True)
 
 
@@ -109,3 +97,4 @@ def make_radar_chart(name="Big 5"):
     return st.pyplot(fig)
 
 make_radar_chart()
+#datamix()
