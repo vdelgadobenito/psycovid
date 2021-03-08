@@ -20,7 +20,7 @@ st.write("""Exploration of PsyCOVID database""")
 progress_bar = st.sidebar.progress(1)
 status_text = st.sidebar.empty()    
 
-data = pd.read_csv('covfinal.csv', error_bad_lines=False, encoding='latin-1').fillna(0)
+data = pd.read_csv('cleaned.csv', error_bad_lines=False, encoding='latin-1').fillna(0)
 
 kwargs = {}
 
