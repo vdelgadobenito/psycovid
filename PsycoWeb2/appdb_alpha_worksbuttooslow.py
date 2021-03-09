@@ -9,7 +9,7 @@ import numpy as np
 
 
 import pymongo
-client = pymongo.MongoClient("mongodb+srv://psycoapp:YkeNhY7jikkCwhb@cluster0.eaq0i.mongodb.net/Psycov05?retryWrites=true&w=majority")
+client = pymongo.MongoClient("mongodb+srv://psycov1:8JchK914zXFv00YM@cluster0.eaq0i.mongodb.net/Psycov05?retryWrites=true&w=majority")
 db = client.Psycov05
 collection = db.Psycov05collection
 
