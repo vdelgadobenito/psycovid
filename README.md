@@ -1,7 +1,7 @@
 # Data analysis
-- Document here the project: psycovid
-- Description: Project Description
-- Data Source:
+- Document here the project: Psycovid
+- Description: A project based on the Psychological impact of the COVID-19 pandemic, that uses Machine Learning technics to predict emotions based on personality aspects. This project makes also possible to implement recommendation systems suggesting best activities for each User after answering a few questions.
+- Data Source: https://osf.io/cjxua/ COVIDiSTRESS_global_survey_May_30_2020_final_cleaned_file.csv (rows = 125306, columns = 153)
 - Type of analysis:
 
 Please document the project the better you can.
