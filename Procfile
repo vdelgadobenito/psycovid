@@ -1,1 +1,1 @@
-web: pip install . -U && psycovid-run
+web: sh setup.sh && streamlit run mainpage.py

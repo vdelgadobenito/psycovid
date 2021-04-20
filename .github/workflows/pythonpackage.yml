@@ -54,13 +54,13 @@ jobs:
       matrix:
         python-version: [3.6, 3.7]
 
-  # # 🤖 CD paragraph
-  # #
-  # # uncomment the following lines to activate CD to Heroku
-  # # - remove the 2 trailing characters "# ", do not change the spaces
-  # #   (there should be 2 spaces before the `deploy_heroku` key)
-  # # - keep in mind you also need to configure Heroku HEROKU_API_KEY and HEROKU_EMAIL in GitHub secrets
-  # # - and replace REPLACE_WITH_YOUR_HEROKU_APP_NAME in this file with the name of your Heroku app
+  # 🤖 CD paragraph
+  #
+  # uncomment the following lines to activate CD to Heroku
+  # - remove the 2 trailing characters "# ", do not change the spaces
+  #   (there should be 2 spaces before the `deploy_heroku` key)
+  # - keep in mind you also need to configure Heroku HEROKU_API_KEY and HEROKU_EMAIL in GitHub secrets
+  # - and replace REPLACE_WITH_YOUR_HEROKU_APP_NAME in this file with the name of your Heroku app
 
   deploy_heroku:
 
