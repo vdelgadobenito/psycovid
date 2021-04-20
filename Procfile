@@ -1,2 +1,1 @@
-web: pip install . -U && psycovidteam-run
- 
+web: pip install . -U && psycovid-run
