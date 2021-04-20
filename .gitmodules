@@ -1,3 +1,2 @@
-[submodule "PsycoWeb2"]
-	path = PsycoWeb2
-	url = https://github.com/vdelgadobenito/psycovid
+
+	url = https://github.com/antoniovmonge/psycovid.git

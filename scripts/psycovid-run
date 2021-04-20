@@ -1,2 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+from psycovid.lib import hello_world
+
+print(hello_world())
